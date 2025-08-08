@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-# chemo_dose_calculator
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-=======
-# chemo-dose-calculator
-
 Chemo Dose Calculator App
 Chemo Dose Calculator is a mobile application built with Flutter and Dart that helps healthcare professionals quickly and accurately calculate chemotherapy drug dosages based on a patient’s Body Surface Area (BSA). The app takes a patient’s height and weight as inputs, calculates the BSA using standard formulas, and then computes the appropriate chemotherapy dose using a pre-defined dose per m² value.
 
