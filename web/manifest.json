@@ -1,11 +1,11 @@
 {
-    "name": "chemo_dose_calculator",
-    "short_name": "chemo_dose_calculator",
+    "name": "BMTrix - Chemo Dose Calculator",
+    "short_name": "BMTrix",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#1a1a2e",
+    "theme_color": "#0071e3",
+    "description": "Calculate chemotherapy dosages using BSA (Body Surface Area)",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
