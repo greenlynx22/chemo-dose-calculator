@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String   @id @default(cuid())
+  email              String   @unique
+  passwordHash       String
+  fullName           String
+  phone              String?
+  userCode           String   @unique
+  isKycVerified      Boolean  @default(false)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  // Assigned US consolidation address (Dallas)
+  usAddressLine1     String
+  usAddressLine2     String
+  usCity             String
+  usState            String
+  usZip              String
+  usCountry          String
+
+  boxes              Box[]
+}
+
+model Box {
+  id            String     @id @default(cuid())
+  user          User       @relation(fields: [userId], references: [id])
+  userId        String
+  status        String     @default("OPEN")
+  capacityKg    Float?     // optional capacity, set when box type is chosen
+  createdAt     DateTime   @default(now())
+  sealedAt      DateTime?
+  cutoffMonth   DateTime   // last day of month of the cycle
+
+  items         BoxItem[]
+  shipment      Shipment?
+}
+
+model BoxItem {
+  id             String    @id @default(cuid())
+  box            Box       @relation(fields: [boxId], references: [id])
+  boxId          String
+  merchant       String
+  orderId        String?
+  description    String?
+  trackingNumber String?
+  weightKg       Float?
+  valueUsd       Float?
+  createdAt      DateTime  @default(now())
+}
+
+model Shipment {
+  id               String        @id @default(cuid())
+  box              Box           @relation(fields: [boxId], references: [id])
+  boxId            String        @unique
+  portChoice       String
+  sealedAt         DateTime
+  containerNumber  String?
+  oceanVessel      String?
+  voyageNumber     String?
+  departurePort    String?
+  arrivalPort      String?
+  departsAt        DateTime?
+  arrivesAt        DateTime?
+  costUsd          Float?
+  trackingDevice   TrackingDevice? @relation(fields: [trackingDeviceId], references: [id])
+  trackingDeviceId String?
+  createdAt        DateTime      @default(now())
+}
+
+model TrackingDevice {
+  id          String         @id @default(cuid())
+  vendor      String
+  model       String?
+  serial      String         @unique
+  createdAt   DateTime       @default(now())
+  shipments   Shipment[]
+  points      TrackingPoint[]
+}
+
+model TrackingPoint {
+  id              String       @id @default(cuid())
+  device          TrackingDevice @relation(fields: [deviceId], references: [id])
+  deviceId        String
+  lat             Float
+  lon             Float
+  speedKts        Float?
+  headingDeg      Float?
+  source          String
+  recordedAt      DateTime
+  createdAt       DateTime     @default(now())
+}
+
